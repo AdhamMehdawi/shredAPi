@@ -1,0 +1,13 @@
+C:\Users\mehda\Desktop\New folder (5)\Resources\bin\Debug\netcoreapp3.0\Resources.deps.json
+C:\Users\mehda\Desktop\New folder (5)\Resources\bin\Debug\netcoreapp3.0\Resources.dll
+C:\Users\mehda\Desktop\New folder (5)\Resources\bin\Debug\netcoreapp3.0\Resources.pdb
+C:\Users\mehda\Desktop\New folder (5)\Resources\bin\Debug\netcoreapp3.0\ar\Resources.resources.dll
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.ar.resources
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.en-US.resources
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.SharedResource.ar.resources
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.csproj.GenerateResource.cache
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.AssemblyInfoInputs.cache
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.AssemblyInfo.cs
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\ar\Resources.resources.dll
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.dll
+C:\Users\mehda\Desktop\New folder (5)\Resources\obj\Debug\netcoreapp3.0\Resources.pdb
