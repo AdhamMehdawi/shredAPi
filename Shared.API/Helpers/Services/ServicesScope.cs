@@ -12,12 +12,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shared.API.Helpers.FileManagement;
 using Shared.API.Helpers.Middleware;
 using Shared.Core.Interfaces;
 using Shared.Core.Interfaces.Employess;
+using Shared.Core.Interfaces.IAttachmentRepo;
 using Shared.Core.Interfaces.IUsers;
 using Shared.Infrastructure.Data;
 using Shared.Infrastructure.Persistence;
+using Shared.Infrastructure.Persistence.AttachmentRepo;
 using Shared.Infrastructure.Persistence.EmployeesRepository;
 using Shared.Infrastructure.Persistence.UsersRepository;
 using Shared.Services.EmployeeServices;
@@ -27,6 +30,7 @@ using Shared.Services.Helpers.Jwt.Interfaces;
 using Shared.Services.JwtServices;
 using Shared.Services.UsersServices;
 using Shared.Services.ViewModels.ServicesViewModel;
+using WorkflowProject.Helpers.FileManagement;
 
 namespace Shared.API.Helpers.Services
 {
@@ -35,7 +39,7 @@ namespace Shared.API.Helpers.Services
         public static IServiceCollection InitAuthentication(this IServiceCollection services, IConfigurationSection jwtAppSettingOptions,
             SymmetricSecurityKey signingKey)
         {
-           var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             services.Configure<JwtIssuerOptions>(options =>
             {
                 options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
@@ -66,8 +70,8 @@ namespace Shared.API.Helpers.Services
                 configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
                 configureOptions.TokenValidationParameters = tokenValidationParameters;
                 configureOptions.SaveToken = true;
-                 configureOptions.SecurityTokenValidators.Clear();
-                 configureOptions.SecurityTokenValidators.Add(new TokenValidationHandler(signingCredentials));
+                configureOptions.SecurityTokenValidators.Clear();
+                configureOptions.SecurityTokenValidators.Add(new TokenValidationHandler(signingCredentials));
             });
 
             // api user claim policy
@@ -168,7 +172,10 @@ namespace Shared.API.Helpers.Services
                 .AddScoped<IJwtFactory, JwtFactory>()
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped(typeof(IRepo<>), typeof(Repo<>))
-                  .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+                  .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+                  .AddScoped<IAttachmentFileRepo, AttachmentFileRepo>()
+                  .AddSingleton<FileSettings>()
+                  .AddScoped<IFileHelper, FileHelper>();
 
             return services;
         }
@@ -204,11 +211,11 @@ namespace Shared.API.Helpers.Services
                 .UseRequestLocalization(
                     app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value)
                 .UseCors("AnyOrigin");
-          //.UseMvc(routes =>
-          //    {
-          //        routes.MapRoute("api", "api/{controller}/{action=Index}/{id?}");
-          //        routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-          //    });
+            //.UseMvc(routes =>
+            //    {
+            //        routes.MapRoute("api", "api/{controller}/{action=Index}/{id?}");
+            //        routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            //    });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

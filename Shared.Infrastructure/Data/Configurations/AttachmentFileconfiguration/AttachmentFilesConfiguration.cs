@@ -8,6 +8,8 @@ namespace Shared.Infrastructure.Data.Configurations.AttachmentFileconfiguration
     {
         public void Configure(EntityTypeBuilder<AttachmentFiles> builder)
         {
+            builder.ToTable("ATTACHMENT_FILE");
+
             builder.HasKey(key => key.Id);
             builder.Property(p => p.FileName)
                 .IsRequired();

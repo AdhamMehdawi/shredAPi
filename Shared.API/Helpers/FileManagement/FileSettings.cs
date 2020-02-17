@@ -12,6 +12,7 @@ namespace Shared.API.Helpers.FileManagement
 
         public bool IsSupported(string fileName)
         {
+            if (AcceptedFileTypes == null) return true;
             return AcceptedFileTypes.Any(c => c == Path.GetExtension(fileName).ToLower());
         }
 
@@ -38,9 +39,9 @@ namespace Shared.API.Helpers.FileManagement
                     result.Message = "Is not supported file extension";
                     result.Result = false;
                 }
-                if (file.Length <= MaxByte) return result;
-                result.Message = "File greater than allowed size 50 MB  ";
-                result.Result = false;
+                //if (file.Length <= MaxByte) return result;
+                //result.Message = "File greater than allowed size 50 MB  ";
+                //result.Result = false;
             }
             return result;
         }

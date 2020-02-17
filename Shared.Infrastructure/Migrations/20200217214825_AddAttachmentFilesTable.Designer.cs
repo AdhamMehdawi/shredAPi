@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using Shared.Infrastructure.Data;
@@ -9,9 +10,10 @@ using Shared.Infrastructure.Data;
 namespace Shared.Infrastructure.Migrations
 {
     [DbContext(typeof(SharedContext))]
-    partial class SharedContextModelSnapshot : ModelSnapshot
+    [Migration("20200217214825_AddAttachmentFilesTable")]
+    partial class AddAttachmentFilesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,7 @@ namespace Shared.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ATTACHMENT_FILE");
+                    b.ToTable("AttachmentFiles");
                 });
 
             modelBuilder.Entity("Shared.Core.Entities.EmpMaster", b =>

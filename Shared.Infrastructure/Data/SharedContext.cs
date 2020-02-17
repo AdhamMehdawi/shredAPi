@@ -25,6 +25,7 @@ namespace Shared.Infrastructure.Data
         public DbSet<LookupTypes> LookupTypes { get; set; }
         public DbSet<Lookups> Lookups { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<AttachmentFiles> AttachmentFiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
