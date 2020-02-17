@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared.Infrastructure.Data.Configurations.AttachmentFileconfiguration;
 using Shared.Infrastructure.Data.Configurations.SystemLookupsConfiguration;
 using Shared.Infrastructure.Data.Configurations.User;
 
@@ -15,7 +16,10 @@ namespace Shared.Infrastructure.Data.Configurations
             //========== Users Table Configuration================
             modelBuilder.ApplyConfiguration(new EmpMasterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            
+
+            //========== File Attachment =======================
+            modelBuilder.ApplyConfiguration(new AttachmentFilesConfiguration()); 
+
             return modelBuilder;
         }
     }
