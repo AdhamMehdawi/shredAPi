@@ -26,34 +26,34 @@ namespace Shared.API.Controllers.SystemLookups
         [HttpGet("GetWithChildren")]
         public async Task<List<LookupTypeViewModel>> GetAllWithChildren()
         {
-            try
-            {
-                var types = await _db.LookupTypesRepository.GetAllWhereAsync(x => x.Editable, "Parent", "Lookups");
-                var typesVM = _mapper.Map<List<LookupTypeViewModel>>(types);
-                return typesVM;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    var types = await _db.LookupTypesRepository.GetAllWhereAsync(x => x.Editable, "Parent", "Lookups");
+            //    var typesVM = _mapper.Map<List<LookupTypeViewModel>>(types);
+            //    return typesVM;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            return null;
         }
 
         // GET: api/LookupTypes
         [HttpGet]
         public virtual async Task<List<LookupTypeViewModel>> Get()
         {
-            try
-            {
-                var type = await _db.LookupTypesRepository.GetAllWithChildrenAsync();
-                var typeResult = _mapper.Map<List<LookupTypeViewModel>>(type);
-                return typeResult;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
+            //try
+            //{
+            //    var type = await _db.LookupTypesRepository.GetAllWithChildrenAsync();
+            //    var typeResult = _mapper.Map<List<LookupTypeViewModel>>(type);
+            //    return typeResult;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            return null;
+        } 
     }
 }

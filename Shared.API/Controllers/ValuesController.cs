@@ -16,8 +16,8 @@ namespace Shared.API.Controllers
         {
             return new
             {
-                Title = "HR System - Shared API",
-                type = ".NET Core 2 API App",
+                Title = "Shared API System",
+                type = ".NET Core 2.2 API App",
                 version = "0.1",
                 By = "Newsoft for programming and Information Technology"
             };

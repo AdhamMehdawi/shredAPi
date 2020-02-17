@@ -19,10 +19,7 @@ namespace Shared.Services.Helpers.Jwt
         {
             _signingCredentials= signingCredentials;
         }
-
         public bool CanReadToken(string securityToken) => true;
-
-
         public User ValidateToken(string securityTokenWrapper)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -51,9 +48,9 @@ namespace Shared.Services.Helpers.Jwt
                 Email = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "email")?.Value,
                 EmployeeId = employeeId,
                 IsSuperAdmin = bool.Parse(claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "isSuperAdmin")
-                    ?.Value),
+                                              ?.Value ?? throw new InvalidOperationException()),
                 NeedResetPassword = bool.Parse(claimsIdentity.Claims
-                    .FirstOrDefault(claim => claim.Type == "needResetPassword")?.Value)
+                                                   .FirstOrDefault(claim => claim.Type == "needResetPassword")?.Value ?? throw new InvalidOperationException())
             };
             return user;
         }
@@ -76,14 +73,10 @@ namespace Shared.Services.Helpers.Jwt
             };
             return new ClaimsPrincipal(new ClaimsIdentity(new GenericIdentity(user.Username, "Token"), claims));
         }
-
         public bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
             if (expires == null) return false;
             return DateTime.UtcNow < expires;
         }
-
-
-
     }
 }

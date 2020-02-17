@@ -1,30 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="ar.Designer.cs">
+    <Compile Update="Language.ar.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ar.resx</DependentUpon>
+      <DependentUpon>Language.ar.resx</DependentUpon>
     </Compile>
-    <Compile Update="en-US.Designer.cs">
+    <Compile Update="Language.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>en-US.resx</DependentUpon>
+      <DependentUpon>Language.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ar.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ar.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Language.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="en-US.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>en-US.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Language.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
