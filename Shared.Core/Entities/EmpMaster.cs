@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Shared.Core.HelperModels;
 
 namespace Shared.Core.Entities
 {
-    public sealed  class EmpMaster
+    public sealed  class EmpMaster:BaseModel
     {
         public EmpMaster()
         {
@@ -24,11 +25,6 @@ namespace Shared.Core.Entities
         public int MartialStatusId { get; set; }
         public DateTime? Birthdate { get; set; }
         public bool ShowInReports { get; set; }
-        public DateTime CreateDate { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public int UpdatedBy { get; set; }
-        public bool IsDeleted { get; set; }
         [NotMapped]
         public string FullName => $"{FirstName} {SecondName} {ThirdName} {LastName}";
 

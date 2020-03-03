@@ -1,0 +1,11 @@
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\bin\Debug\netcoreapp2.2\Shared.GeneralHelper.deps.json
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\bin\Debug\netcoreapp2.2\Shared.GeneralHelper.dll
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\bin\Debug\netcoreapp2.2\Shared.GeneralHelper.pdb
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\bin\Debug\netcoreapp2.2\Shared.Core.dll
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\bin\Debug\netcoreapp2.2\Shared.Core.pdb
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.csprojAssemblyReference.cache
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.AssemblyInfoInputs.cache
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.AssemblyInfo.cs
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.csproj.CopyComplete
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.dll
+C:\Users\mehda\Desktop\shredAPi\Shared.GeneralHelper\obj\Debug\netcoreapp2.2\Shared.GeneralHelper.pdb

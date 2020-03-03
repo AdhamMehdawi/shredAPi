@@ -9,7 +9,6 @@ namespace Shared.Infrastructure.Data.Configurations.AttachmentFileconfiguration
         public void Configure(EntityTypeBuilder<AttachmentFiles> builder)
         {
             builder.ToTable("ATTACHMENT_FILE");
-
             builder.HasKey(key => key.Id);
             builder.Property(p => p.FileName)
                 .IsRequired();
@@ -19,7 +18,13 @@ namespace Shared.Infrastructure.Data.Configurations.AttachmentFileconfiguration
             builder.Property(e => e.FileName).HasColumnName("FILE_NAME");
             builder.Property(e => e.FileExtension).HasColumnName("FILE_EXTENSION");
             builder.Property(e => e.FileSize).HasColumnName("FILE_SIZE");
-            builder.Property(e => e.FileContent).HasColumnName("FILE_CONTENT");
-    }
+            builder.Property(e => e.FileContentData).HasColumnName("FILE_CONTENT_DATA");
+            builder.Property(e => e.FileContentData).HasColumnType("CLOB");
+            builder.Property(e => e.CreatedAt).HasColumnName("CREATED_AT");
+            builder.Property(e => e.LastModifiedTime).HasColumnName("LAST_MODIFIED_TIME");
+            builder.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+            builder.Property(e => e.IsDeleted).HasColumnName("IS_DELETED");
+            builder.Property(e => e.LastModifiedBy).HasColumnName("LAST_MODIFIED_BY");
+        }
     }
 }

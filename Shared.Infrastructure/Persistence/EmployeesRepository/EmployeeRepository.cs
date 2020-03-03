@@ -5,6 +5,7 @@ using Shared.Infrastructure.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared.Core.HelperModels;
 
 namespace Shared.Infrastructure.Persistence.EmployeesRepository
 {
@@ -12,7 +13,8 @@ namespace Shared.Infrastructure.Persistence.EmployeesRepository
     {
         private readonly SharedContext _db;
 
-        public EmployeeRepository(SharedContext context) : base(context)
+        public EmployeeRepository(SharedContext context, UserService userService)
+            : base(context, userService)
         {
             _db = context;
         }

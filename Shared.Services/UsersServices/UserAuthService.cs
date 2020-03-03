@@ -1,6 +1,6 @@
-﻿using Shared.Core.Interfaces;
-using Shared.Services.ViewModels.ServicesViewModel;
-using Shared.Services.ViewModels.Users;
+﻿using Shared.Core.HelperModels;
+using Shared.Core.Interfaces;
+using Shared.GeneralHelper.ViewModels.Users;
 
 namespace Shared.Services.UsersServices
 {

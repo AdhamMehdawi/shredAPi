@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Shared.API.Helpers.Services;
-using Shared.Services.Helpers.Jwt;
 using Shared.Services.JwtServices;
+using Shared.Services.JwtServices.Jwt;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Shared.API

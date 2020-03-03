@@ -4,8 +4,8 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Services.ViewModels.Users;
-
+using Shared.GeneralHelper.ViewModels.Users;
+ 
 namespace Shared.API.Helpers.Auth
 {
     public class AuthenticationManager

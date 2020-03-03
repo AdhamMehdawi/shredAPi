@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shared.API.Helpers.Shared;
+using Shared.GeneralHelper.ViewModels.Employee;
 using Shared.Services.EmployeeServices;
-using Shared.Services.ViewModels.Employee;
-
+ 
 namespace Shared.API.Controllers.Employees
 {
     [Route("api/[controller]"), Produces("application/json")]

@@ -24,6 +24,7 @@ namespace Shared.Infrastructure.Data
         public DbSet<EmpMaster> EmpMaster { get; set; }
         public DbSet<LookupTypes> LookupTypes { get; set; }
         public DbSet<Lookups> Lookups { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<AttachmentFiles> AttachmentFiles { get; set; }
 

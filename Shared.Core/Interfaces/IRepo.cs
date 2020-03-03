@@ -7,7 +7,7 @@ using Shared.Core.HelperModels;
 
 namespace Shared.Core.Interfaces
 {
-    public interface IRepo<TEntity> where TEntity : class
+    public interface IRepo<TEntity> where TEntity : class, IBaseModel
     {
         TEntity Get(int id);
         TEntity Get(Expression<Func<TEntity, bool>> predicate, bool withDeleted = false);

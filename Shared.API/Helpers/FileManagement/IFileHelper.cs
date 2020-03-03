@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Shared.Services.ViewModels.AttachmentViewModel;
+using Shared.GeneralHelper.ViewModels.AttachmentViewModel;
 
-namespace WorkflowProject.Helpers.FileManagement
+namespace Shared.API.Helpers.FileManagement
 {
     /// <summary>
     /// 

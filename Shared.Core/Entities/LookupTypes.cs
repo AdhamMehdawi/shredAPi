@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shared.Core.HelperModels;
 
 namespace Shared.Core.Entities
 {
-    public sealed class LookupTypes
+    public sealed class LookupTypes: BaseModel
     {
         public LookupTypes()
         {

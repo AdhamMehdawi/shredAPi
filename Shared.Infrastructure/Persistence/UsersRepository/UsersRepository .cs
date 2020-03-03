@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shared.Core.Entities;
+ using Shared.Core.Entities;
+using Shared.Core.HelperModels;
 using Shared.Core.Interfaces.IUsers;
 using Shared.Infrastructure.Data;
 
@@ -12,7 +12,8 @@ namespace Shared.Infrastructure.Persistence.UsersRepository
     {
         private readonly SharedContext _db;
 
-        public UsersRepository(SharedContext context):base(context)
+        public UsersRepository(SharedContext context, UserService userService)
+            : base(context, userService)
         {
             _db = context;
         }
@@ -21,6 +22,7 @@ namespace Shared.Infrastructure.Persistence.UsersRepository
         public async Task<User> CheckLogin(string username, string password)
         {
             return await _db.Users.Include(x => x.Employee)
+                .IgnoreQueryFilters()
                .FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
         }
         public async Task<User> CheckLogin(string username)

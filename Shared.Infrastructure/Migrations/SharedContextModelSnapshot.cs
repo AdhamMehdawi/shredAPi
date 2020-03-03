@@ -25,8 +25,15 @@ namespace Shared.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID");
 
-                    b.Property<byte[]>("FileContent")
-                        .HasColumnName("FILE_CONTENT");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<string>("FileContentData")
+                        .HasColumnName("FILE_CONTENT_DATA")
+                        .HasColumnType("CLOB");
 
                     b.Property<string>("FileExtension")
                         .IsRequired()
@@ -38,6 +45,15 @@ namespace Shared.Infrastructure.Migrations
 
                     b.Property<long>("FileSize")
                         .HasColumnName("FILE_SIZE");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnName("IS_DELETED");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME");
 
                     b.HasKey("Id");
 
@@ -53,8 +69,8 @@ namespace Shared.Infrastructure.Migrations
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnName("BIRTHDATE");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnName("CREATE_DATE");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnName("CREATED_BY");
@@ -83,6 +99,12 @@ namespace Shared.Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("IS_DELETED");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -120,12 +142,6 @@ namespace Shared.Infrastructure.Migrations
                         .HasColumnName("THIRD_NAME")
                         .HasMaxLength(150);
 
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnName("UPDATE_DATE");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnName("UPDATED_BY");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DepId");
@@ -162,8 +178,25 @@ namespace Shared.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnName("ID");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT")
+                        .HasColumnType("date");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnName("CREATED_BY");
+
                     b.Property<bool>("Editable")
                         .HasColumnName("EDITABLE");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnName("IS_DELETED");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME")
+                        .HasColumnType("date");
 
                     b.Property<int?>("ParentId")
                         .HasColumnName("PARENT_ID");
@@ -187,15 +220,25 @@ namespace Shared.Infrastructure.Migrations
                     b.Property<string>("Code")
                         .HasColumnName("CODE");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT")
+                        .HasColumnType("date");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnName("CREATED_BY");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnName("CREATED_DATE")
-                        .HasColumnType("date");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnName("IS_DELETED");
 
                     b.Property<int?>("IsPrimary")
                         .HasColumnName("IS_PRIMARY");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME")
+                        .HasColumnType("date");
 
                     b.Property<int?>("LookupTypeId")
                         .HasColumnName("LOOKUP_TYPE_ID");
@@ -208,13 +251,6 @@ namespace Shared.Infrastructure.Migrations
                         .HasColumnName("TITLE")
                         .HasMaxLength(150);
 
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnName("UPDATE_DATE")
-                        .HasColumnType("date");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnName("UPDATED_BY");
-
                     b.Property<string>("Value")
                         .HasColumnName("VALUE");
 
@@ -225,14 +261,56 @@ namespace Shared.Infrastructure.Migrations
                     b.ToTable("LOOKUPS");
                 });
 
+            modelBuilder.Entity("Shared.Core.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Body")
+                        .HasColumnName("BODY");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<int>("FromUser")
+                        .HasColumnName("FROM_USER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnName("IS_DELETED");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME");
+
+                    b.Property<string>("RedirectUrl")
+                        .HasColumnName("REDIRECT_URL");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnName("TITLE");
+
+                    b.Property<int>("ToUser")
+                        .HasColumnName("TO_USER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NOTIFICATION");
+                });
+
             modelBuilder.Entity("Shared.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnName("CREATE_DATE");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnName("CREATED_BY");
@@ -246,8 +324,17 @@ namespace Shared.Infrastructure.Migrations
                     b.Property<string>("FullName")
                         .HasColumnName("FULL_NAME");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnName("IS_DELETED");
+
                     b.Property<bool>("IsSuperAdmin")
                         .HasColumnName("IS_SUPER_ADMIN");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnName("LAST_MODIFIED_BY");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnName("LAST_MODIFIED_TIME");
 
                     b.Property<bool>("NeedResetPassword")
                         .HasColumnName("NEED_RESET_PASSWORD");
@@ -261,14 +348,8 @@ namespace Shared.Infrastructure.Migrations
                     b.Property<string>("ResetToken")
                         .HasColumnName("RESET_TOKEN");
 
-                    b.Property<DateTime>("ResetTokenExDate")
+                    b.Property<DateTime?>("ResetTokenExDate")
                         .HasColumnName("RESET_TOKEN_EX_DATE");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnName("UPDATE_DATE");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnName("UPDATED_BY");
 
                     b.Property<string>("Username")
                         .HasColumnName("USER_NAME");

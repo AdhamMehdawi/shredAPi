@@ -4,20 +4,22 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shared.Core.HelperModels;
+ using Shared.Core.HelperModels;
 using Shared.Core.Interfaces;
  using Shared.Infrastructure.Data;
 
 namespace Shared.Infrastructure.Persistence
 {
-    public class Repo<TEntity> : IDisposable, IRepo<TEntity> where TEntity : class
+    public class Repo<TEntity> : IDisposable, IRepo<TEntity> where TEntity : class, IBaseModel
     {
         private readonly SharedContext _db;
         internal DbSet<TEntity> DbSet;
+        private readonly UserService _userService;
 
-        public Repo(SharedContext context)
+        public Repo(SharedContext context, UserService userService)
         {
             _db = context;
+            _userService = userService;
             DbSet = context.Set<TEntity>();
         }
 
@@ -108,10 +110,8 @@ namespace Shared.Infrastructure.Persistence
 
         public Task<List<TEntity>> GetAllWhereAsync(Expression<Func<TEntity, bool>> predicate, params string[] include)
         {
-            IQueryable<TEntity> list = DbSet.Where(predicate);
-
+            var list = DbSet.Where(predicate);
             list = include.Aggregate(list, (current, item) => current.Include(item));
-
             return list.ToListAsync();
         }
 
@@ -124,13 +124,9 @@ namespace Shared.Infrastructure.Persistence
         )
         {
             IQueryable<TEntity> query = DbSet;
-
             if (filter != null)
                 query = query.Where(filter);
-
-            foreach (string includeProperty in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                query = query.Include(includeProperty);
-
+            query = includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             if (orderBy != null)
                 query = orderBy(query);
 
@@ -185,18 +181,32 @@ namespace Shared.Infrastructure.Persistence
 
         public TEntity Add(TEntity obj)
         {
+            FillBaseModelData(obj);
             DbSet.Add(obj);
             return obj;
+        }
+        private void FillBaseModelData(TEntity obj)
+        {
+            obj.CreatedAt = DateTime.UtcNow;
+            obj.LastModifiedTime = DateTime.UtcNow;
+            obj.IsDeleted = false;
+             obj.CreatedBy =  _userService.EmployeeId ?? 0;
+            obj.LastModifiedBy = _userService.EmployeeId ?? 0;
         }
 
         public async Task<TEntity> AddAsync(TEntity obj)
         {
+            FillBaseModelData(obj);
             await DbSet.AddAsync(obj);
             return obj;
         }
 
         public async Task<IList<TEntity>> AddRangeAsync(IList<TEntity> obj)
         {
+            foreach (var item in obj)
+            {
+                FillBaseModelData(item);
+            }
             await DbSet.AddRangeAsync(obj);
             return obj;
         }

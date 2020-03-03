@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Infrastructure.Data.Configurations.AttachmentFileconfiguration;
+using Shared.Infrastructure.Data.Configurations.NotificationConfiguration;
 using Shared.Infrastructure.Data.Configurations.SystemLookupsConfiguration;
 using Shared.Infrastructure.Data.Configurations.User;
 
@@ -12,6 +13,7 @@ namespace Shared.Infrastructure.Data.Configurations
             //========== System Table & lookups configuration================
             modelBuilder.ApplyConfiguration(new LookupTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LookupsConfiguration()); 
+            modelBuilder.ApplyConfiguration(new NotificationConfig()); 
             
             //========== Users Table Configuration================
             modelBuilder.ApplyConfiguration(new EmpMasterConfiguration());

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shared.Core.HelperModels;
 
 namespace Shared.Core.Entities
 {
-    public sealed class Lookups
+    public sealed class Lookups:BaseModel
     {
         public Lookups()
         {
@@ -25,10 +26,7 @@ namespace Shared.Core.Entities
         public int? LookupTypeId { get; set; }
         public string Value { get; set; }
         public int? IsPrimary { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public int UpdatedBy { get; set; }
+       
 
         public LookupTypes LookupType { get; set; }
         public ICollection<EmpMaster> HrmEmpMasterBirthCity { get; set; }

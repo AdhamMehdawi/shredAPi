@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Core.Entities;
-using Shared.Services.Helpers.Jwt;
-using Shared.Services.Helpers.Jwt.Interfaces;
-using Shared.Services.ViewModels.Jwt;
-
+using Shared.GeneralHelper.ViewModels.Jwt;
+using Shared.Services.JwtServices.Jwt;
+using Shared.Services.JwtServices.Jwt.Interfaces;
+ 
 namespace Shared.Services.JwtServices
 {
     public class JwtServices
     {
-        private readonly UsersServices.UsersServices _usersServices;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
         private IOptions<JwtIssuerOptions> _options;
-        public JwtServices( IJwtFactory jwtFactory, JwtIssuerOptions jwtOptions, UsersServices.UsersServices usersServices, IOptions<JwtIssuerOptions> options)
+        private UsersServices.UsersServices _usersServices;
+        public JwtServices(IJwtFactory jwtFactory, JwtIssuerOptions jwtOptions, UsersServices.UsersServices usersServices,
+            IOptions<JwtIssuerOptions> options)
         {
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions;
@@ -28,7 +29,7 @@ namespace Shared.Services.JwtServices
             _options = options;
         }
 
- 
+
 
         public async Task<TokenWrapper> Login(CredentialsViewModel credentials)
         {
@@ -52,7 +53,7 @@ namespace Shared.Services.JwtServices
             return await Task.FromResult<ClaimsIdentity>(null);
         }
 
-        public   bool LifetimeValidator(DateTime? notBefore, DateTime? expires,
+        public bool LifetimeValidator(DateTime? notBefore, DateTime? expires,
             SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
             if (expires != null)
@@ -65,11 +66,11 @@ namespace Shared.Services.JwtServices
             return false;
         }
 
-        public   User ValidateToken(string securityTokenWrapper)
+        public User ValidateToken(string securityTokenWrapper)
         {
             var handler = new JwtSecurityTokenHandler();
             if (!(handler.ReadToken(securityTokenWrapper) is JwtSecurityToken decodedToken)) return null;
-       
+
             var validationParameters = new TokenValidationParameters
             {
                 ValidAudience = _options.Value.Audience,

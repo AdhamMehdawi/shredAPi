@@ -12,10 +12,11 @@ namespace Shared.Infrastructure.Data.Configurations.User
 
             entity.HasIndex(e => e.EmployeeId);
             entity.Property(e => e.EmployeeId).HasColumnName("EMPLOYEE_ID");
-            entity.Property(e => e.CreateDate).HasColumnName("CREATE_DATE");
-            entity.Property(e => e.UpdateDate).HasColumnName("UPDATE_DATE");
+            entity.Property(e => e.CreatedAt).HasColumnName("CREATED_AT");
+            entity.Property(e => e.LastModifiedTime).HasColumnName("LAST_MODIFIED_TIME");
             entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
-            entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+            entity.Property(e => e.IsDeleted).HasColumnName("IS_DELETED");
+            entity.Property(e => e.LastModifiedBy).HasColumnName("LAST_MODIFIED_BY");
             entity.Property(e => e.NeedResetPassword).HasColumnName("NEED_RESET_PASSWORD");
             entity.Property(e => e.ResetTokenExDate).HasColumnName("RESET_TOKEN_EX_DATE");
             entity.Property(e => e.IsSuperAdmin).HasColumnName("IS_SUPER_ADMIN");

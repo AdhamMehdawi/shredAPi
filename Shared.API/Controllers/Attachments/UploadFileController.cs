@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Shared.API.Helpers.FileManagement;
 using Shared.API.Helpers.Shared;
-using WorkflowProject.Helpers.FileManagement;
 
 namespace Shared.API.Controllers.Attachments
 {
@@ -31,11 +30,18 @@ namespace Shared.API.Controllers.Attachments
         [HttpPost]
         public async Task<IActionResult> Post(IFormFile file)
         {
-            var validateFile = _fileSettings.IsValidFile(file);
-            if (!validateFile.Result) return BadRequest(validateFile.Message);
-            var result = await _fileHelper.SaveFile(file);
-            return new SharedResponseResult<Guid>(result,
+            try
+            {
+                var validateFile = _fileSettings.IsValidFile(file);
+                if (!validateFile.Result) return BadRequest(validateFile.Message);
+                var result = await _fileHelper.SaveFile(file);
+                return new SharedResponseResult<Guid>(result,
                     "The file has been uploaded successfully  ");
+            }
+            catch (Exception e)
+            {
+                return Ok(e);
+            }
         }
 
         /// <summary>
@@ -59,10 +65,10 @@ namespace Shared.API.Controllers.Attachments
         /// <exception cref="ShredValidationException"></exception>
         [HttpGet]
         [ProducesResponseType(typeof(FileStreamResult), 200)]
-        public async Task<IActionResult> Download(Guid  id)
+        public async Task<IActionResult> Download(Guid id)
         {
             var fileData = await _fileHelper.DownloadFileAsync(id);
-            if(fileData == null)
+            if (fileData == null)
                 throw new ShredValidationException("filename not present");
             return File(fileData.MemoryStream, fileData.ContentType, fileData.FileName);
         }

@@ -1,10 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Shared.Core.Entities;
+using Shared.Core.HelperModels;
+using Shared.Core.Interfaces;
 using Shared.Core.Interfaces.IUsers;
-using Shared.Services.Helpers;
- 
+using System.Threading.Tasks;
+using AutoMapper;
+using Shared.GeneralHelper.Helpers;
+using Shared.GeneralHelper.ViewModels.Users;
 
 namespace Shared.Services.UsersServices
 {
@@ -12,12 +16,22 @@ namespace Shared.Services.UsersServices
     public class UsersServices
     {
         private readonly IUsersRepository _usersRepository;
-  
-        public UsersServices(IUsersRepository usersRepository)
+        private readonly IMapper _mapper;
+        private readonly UserService _usersService;
+        private readonly IUnitOfWork _unitOfWork;
+        public UsersServices(IUsersRepository usersRepository, IMapper mapper, UserService usersService, IUnitOfWork unitOfWork)
         {
             _usersRepository = usersRepository;
-         }
-
+            _mapper = mapper;
+            _usersService = usersService;
+            _unitOfWork = unitOfWork;
+        }
+        public async Task<DisplayUserViewModel> GetUser(int id)
+        {
+            var userData = await _usersRepository.GetAsync(c => c.Id == id);
+            var userResult = _mapper.Map<DisplayUserViewModel>(userData);
+            return userResult;
+        }
         public async Task<User> GetUser(string username, string password)
         {
             if (string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
@@ -33,7 +47,7 @@ namespace Shared.Services.UsersServices
             if (user == null)
             {
                 user = await _usersRepository.CheckLogin(username);
-                if (user == null || password != "mmNewsoft123#")
+                if (user == null)
                     return null;
             }
             if (user.PassExpireDate.HasValue && user.PassExpireDate < DateTime.Now)
@@ -41,9 +55,10 @@ namespace Shared.Services.UsersServices
             return user;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<DisplayUserViewModel>> GetAll()
         {
-            return await _usersRepository.GetAllAsync();
+            var result = await _usersRepository.GetAllAsync();
+            return _mapper.Map<List<DisplayUserViewModel>>(result);
         }
 
         public async Task<User> GetEmpByUsername(string credentialsUsername)
@@ -52,6 +67,18 @@ namespace Shared.Services.UsersServices
             if (user.PassExpireDate.HasValue && user.PassExpireDate < DateTime.Now)
                 user = null;
             return user;
+        }
+
+        public async Task<DisplayUserViewModel> CreateNewUser(AppUserViewModel userObj)
+        {
+            var credentials = _mapper.Map<User>(userObj);
+            credentials.Password = Encryption.Encrypt(userObj.Password, true);
+            credentials.NeedResetPassword = true;
+            credentials.PassExpireDate = DateTime.Now.AddDays(20);
+            credentials.ResetTokenExDate = DateTime.Now.AddDays(20);
+            await _usersRepository.AddAsync(credentials);
+            await _unitOfWork.CompleteAsync();
+            return _mapper.Map<DisplayUserViewModel>(credentials);
         }
     }
 }

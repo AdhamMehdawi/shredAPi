@@ -79,11 +79,11 @@ namespace Shared.Infrastructure.Data.Configurations.User
             entity.Property(e => e.MartialStatusId).HasColumnName("MARTIAL_STATUS_ID");
             entity.Property(e => e.Birthdate).HasColumnName("BIRTHDATE");
             entity.Property(e => e.ShowInReports).HasColumnName("SHOW_IN_REPORTS");
-            entity.Property(e => e.CreateDate).HasColumnName("CREATE_DATE");
+            entity.Property(e => e.CreatedAt).HasColumnName("CREATED_AT");
+            entity.Property(e => e.LastModifiedTime).HasColumnName("LAST_MODIFIED_TIME");
             entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
-            entity.Property(e => e.UpdateDate).HasColumnName("UPDATE_DATE");
-            entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
             entity.Property(e => e.IsDeleted).HasColumnName("IS_DELETED");
+            entity.Property(e => e.LastModifiedBy).HasColumnName("LAST_MODIFIED_BY");
         }
     }
 }

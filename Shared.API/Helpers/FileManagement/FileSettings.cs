@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
-using Shared.Services.ViewModels.ServicesViewModel;
+using Shared.GeneralHelper.ViewModels.ServicesViewModel;
 
 namespace Shared.API.Helpers.FileManagement
 {

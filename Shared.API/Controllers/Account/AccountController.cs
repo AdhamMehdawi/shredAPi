@@ -1,123 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Shared.Core.Interfaces;
-using Shared.Services.Helpers.Jwt;
-using Shared.Services.Helpers.Jwt.Interfaces;
-using Shared.Services.ViewModels.ServicesViewModel;
-using Shared.API.Helpers.Auth;
-using Shared.Core.Entities;
+using Shared.API.Helpers.Shared;
+using Shared.GeneralHelper.ViewModels.Users;
 using Shared.Services.UsersServices;
-using Shared.Services.ViewModels.Users;
-
+ 
 namespace Shared.API.Controllers.Account
 {
     [Produces("application/json"), Route("api/Accounts")]
     public class AccountController : Controller
     {
-        private readonly IMapper _mapper;
+        private readonly UsersServices _usersServices;
 
-        private readonly IUnitOfWork _db;
-
-        private readonly AuthenticationManager _authManager;
-
-        private readonly IHttpContextAccessor _accessor;
-        private readonly UserService _usersService;
-        private readonly IJwtFactory _jwtFactory;
-        private readonly JwtIssuerOptions _jwtOptions;
-
-
-        public AccountController(
-            IMapper mapper,
-            IUnitOfWork db,
-            IHttpContextAccessor accessor,
-            IJwtFactory jwtFactory,
-            IOptions<JwtIssuerOptions> jwtOptions,
-            UserService usersService
-            )
+        public AccountController(UsersServices usersServices)
         {
-            _mapper = mapper;
-            _db = db;
-            _authManager = new AuthenticationManager();
-            _accessor = accessor;
-            _usersService = usersService;
-            _jwtFactory = jwtFactory;
-            _jwtOptions = jwtOptions.Value;
+            _usersServices = usersServices;
         }
-
-        [HttpGet]
-        public List<AppUserViewModel> Get()
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
         {
-            //try
-            //{
-            //    IEnumerable<AppUser> list = _db.UserRepository.Find(null, null, "Employee");
-            //    var listVM = _mapper.Map<List<AppUserViewModel>>(list);
-            //    return listVM;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-            return null;
+            var userObj = await _usersServices.GetAll();
+            return new SharedResponseResult<List<DisplayUserViewModel>>(userObj);
         }
 
         [HttpGet("{id}")]
-        public async Task<AppUserViewModel> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            //try
-            //{
-            //    AppUser item = await _db.UserRepository.GetAsyncById(id);
-            //    return _mapper.Map<AppUserViewModel>(item);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-            return null;
+            var userObj = await _usersServices.GetUser(id);
+            return new SharedResponseResult<DisplayUserViewModel>(userObj);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AppUserViewModel credentialsVM)
+        [HttpPost("Post")]
+        public async Task<IActionResult> Post([FromBody]AppUserViewModel userData)
         {
-            try
+            if (!ModelState.IsValid)
             {
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-                //var credentials = _mapper.Map<AppUser>(credentialsVM);
-                //Models.Employees.Employee employee = _db.EmployeeRepository.Find(x => x.Id == credentials.EmployeeId).FirstOrDefault();
-
-                //User user = new User
-                //{
-                //    Email = credentials.Email,
-                //    EmployeeId = credentials.EmployeeId,
-                //    FullName = credentials.FullName,
-                //    Password = Encryption.Encrypt(employee.EmpNo.ToString(), true),
-                //    Username = employee.EmpNo.ToString(),
-                //    NeedResetPassword = credentials.NeedResetPassword,
-                //    PassExpireDate = credentials.PassExpireDate,
-                //    IsSuperAdmin = credentials.IsSuperAdmin,
-                //    UpdateDate = DateTime.Now,
-                //    UpdatedBy = _usersService.Id,
-                //    CreateDate = DateTime.Now,
-                //    CreatedBy = _usersService.Id
-                //};
-
-                //await _db.UserRepository.AddAsync(user);
-
-                return Ok();
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var userObj = await _usersServices.CreateNewUser(userData);
+            return new SharedResponseResult<DisplayUserViewModel>(userObj, "The user has been created successfully");
         }
 
         [HttpPut("{id}")]
@@ -147,7 +69,7 @@ namespace Shared.API.Controllers.Account
                 //    PassExpireDate = appUser.PassExpireDate,
                 //    IsSuperAdmin = appUser.IsSuperAdmin,
                 //    UpdateDate = DateTime.Now,
-                //    UpdatedBy = _usersService.Id
+                //    UpdatedBy = _usersInfo.Id
                 //};
 
                 //await _db.UserRepository.UpdateAsync(user);
@@ -164,14 +86,14 @@ namespace Shared.API.Controllers.Account
         [HttpPut("UpdatePassword")]
         public async Task<object> UpdatePassword([FromBody]ResetPasswordViewModel passwordViewModel)
         {
-            UserAuthService userManagement = new UserAuthService(_usersService, _db);
+            //UserAuthService userManagement = new UserAuthService(_usersInfo, _db);
 
             try
             {
-                var isReset = userManagement.ResetPassword(passwordViewModel);
+                //var isReset = userManagement.ResetPassword(passwordViewModel);
                 //if (isReset)
                 //{
-                //    User user = _db.UserRepository.Find(usr => usr.Id == _usersService.Id).FirstOrDefault();
+                //    User user = _db.UserRepository.Find(usr => usr.Id == _usersInfo.Id).FirstOrDefault();
                 //    //var userVM = _mapper.Map<AppUserViewModel>(user);
                 //    ClaimsIdentity identity = await GetClaimsIdentity(user);
 
@@ -183,14 +105,14 @@ namespace Shared.API.Controllers.Account
 
                 //    var response = new
                 //    {
-                //        id = _usersService.Id,
+                //        id = _usersInfo.Id,
                 //        token = await _jwtFactory.GenerateEncodedToken(user.Username, identity, user),
                 //        expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
                 //    };
 
                 //    return response;
                 //}
-                return isReset;
+                return true;
             }
             catch (Exception ex)
             {
@@ -220,13 +142,12 @@ namespace Shared.API.Controllers.Account
             }
         }
 
-
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
-               // _db.UserRepository.DeleteAsync(id);
+                // _db.UserRepository.DeleteAsync(id);
                 return Ok();
             }
             catch (Exception ex)
@@ -235,13 +156,5 @@ namespace Shared.API.Controllers.Account
             }
         }
 
-        private async Task<ClaimsIdentity> GetClaimsIdentity(User user)
-        {
-            if (!(user is null))
-            {
-                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(user.Username, user.Id.ToString()));
-            }
-            return await Task.FromResult<ClaimsIdentity>(null);
-        }
     }
 }

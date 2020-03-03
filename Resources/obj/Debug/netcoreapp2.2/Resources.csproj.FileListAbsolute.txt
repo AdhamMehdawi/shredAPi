@@ -1,13 +1,12 @@
 C:\Users\mehda\Desktop\shredAPi\Resources\bin\Debug\netcoreapp2.2\Resources.deps.json
 C:\Users\mehda\Desktop\shredAPi\Resources\bin\Debug\netcoreapp2.2\Resources.dll
 C:\Users\mehda\Desktop\shredAPi\Resources\bin\Debug\netcoreapp2.2\Resources.pdb
+C:\Users\mehda\Desktop\shredAPi\Resources\bin\Debug\netcoreapp2.2\ar\Resources.resources.dll
+C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.Language.resources
+C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.Language.ar.resources
 C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.csproj.GenerateResource.cache
 C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.AssemblyInfoInputs.cache
 C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.AssemblyInfo.cs
+C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\ar\Resources.resources.dll
 C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.dll
 C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.pdb
-C:\Users\mehda\Desktop\shredAPi\Resources\bin\Debug\netcoreapp2.2\ar\Resources.resources.dll
-C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.csprojAssemblyReference.cache
-C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.Language.resources
-C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\Resources.Language.ar.resources
-C:\Users\mehda\Desktop\shredAPi\Resources\obj\Debug\netcoreapp2.2\ar\Resources.resources.dll

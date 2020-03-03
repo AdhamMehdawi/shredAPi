@@ -1,8 +1,9 @@
 ﻿using System;
+using Shared.Core.HelperModels;
 
 namespace Shared.Core.Entities
 {
-    public  class User
+    public  class User:BaseModel
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -13,12 +14,8 @@ namespace Shared.Core.Entities
         public bool NeedResetPassword { get; set; }
         public DateTime? PassExpireDate { get; set; }
         public string ResetToken { get; set; }
-        public DateTime ResetTokenExDate { get; set; }
+        public DateTime? ResetTokenExDate { get; set; }
         public bool IsSuperAdmin { get; set; }
-        public DateTime CreateDate { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public int UpdatedBy { get; set; }
         public virtual EmpMaster Employee { get; set; }
     }
 }

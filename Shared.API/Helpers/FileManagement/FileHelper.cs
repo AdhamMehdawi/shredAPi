@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Shared.Core.Entities;
 using Shared.Core.Interfaces;
 using Shared.Core.Interfaces.IAttachmentRepo;
-using Shared.Services.ViewModels.AttachmentViewModel;
-using WorkflowProject.Helpers.FileManagement;
+using Shared.GeneralHelper.ViewModels.AttachmentViewModel;
 
 namespace Shared.API.Helpers.FileManagement
 {
@@ -44,7 +43,7 @@ namespace Shared.API.Helpers.FileManagement
 
             var attachmentFile = new AttachmentFiles
             {
-                FileContent = ms.ToArray(),
+                FileContentData = ms.ToArray().ToString(),
                 FileExtension = Path.GetExtension(file.FileName),
                 FileName = file.FileName,
                 FileSize = file.Length
@@ -116,9 +115,10 @@ namespace Shared.API.Helpers.FileManagement
 
         public async Task<DownloadAttachmentViewModel> DownloadFileAsync(Guid fileId)
         {
-            var file =  await _attachmentFileRepo.GetAsync(c => c.Id == fileId);
-           var memory = new MemoryStream(file.FileContent) {Position = 0};
-           return new DownloadAttachmentViewModel
+            var file = await _attachmentFileRepo.GetAsync(c => c.Id == fileId);
+            var bytesArray = Convert.ToByte(file.FileContentData);
+            var memory = new MemoryStream(bytesArray) { Position = 0 };
+            return new DownloadAttachmentViewModel
             {
                 MemoryStream = memory,
                 ContentType = GetContentType(file.FileExtension),

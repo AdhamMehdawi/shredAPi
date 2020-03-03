@@ -14,24 +14,26 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared.API.Helpers.FileManagement;
 using Shared.API.Helpers.Middleware;
+using Shared.API.Helpers.Shared;
+using Shared.Core.HelperModels;
 using Shared.Core.Interfaces;
 using Shared.Core.Interfaces.Employess;
 using Shared.Core.Interfaces.IAttachmentRepo;
 using Shared.Core.Interfaces.IUsers;
+using Shared.GeneralHelper.ViewModels.ServicesViewModel;
 using Shared.Infrastructure.Data;
 using Shared.Infrastructure.Persistence;
 using Shared.Infrastructure.Persistence.AttachmentRepo;
 using Shared.Infrastructure.Persistence.EmployeesRepository;
 using Shared.Infrastructure.Persistence.UsersRepository;
 using Shared.Services.EmployeeServices;
-using Shared.Services.Helpers.HelperClasses;
-using Shared.Services.Helpers.Jwt;
-using Shared.Services.Helpers.Jwt.Interfaces;
+using Shared.Services.GenericService;
 using Shared.Services.JwtServices;
+using Shared.Services.JwtServices.Jwt;
+using Shared.Services.JwtServices.Jwt.Interfaces;
+using Shared.Services.Lookup;
 using Shared.Services.UsersServices;
-using Shared.Services.ViewModels.ServicesViewModel;
-using WorkflowProject.Helpers.FileManagement;
-
+ 
 namespace Shared.API.Helpers.Services
 {
     public static class ServicesScope
@@ -163,8 +165,7 @@ namespace Shared.API.Helpers.Services
                 .AddSingleton<JwtIssuerOptions>()
                 .AddScoped<JsonParser>()
                 .AddScoped<MachineInfoService>()
-                .AddScoped<UsersServices>()
-                .AddScoped<JwtServices>()
+                 .AddScoped<JwtServices>()
                 .AddScoped<TokenValidationHandler>()
                 .AddSingleton<ApiService>()
                 .AddScoped<IUsersRepository, UsersRepository>()
@@ -174,8 +175,13 @@ namespace Shared.API.Helpers.Services
                 .AddScoped(typeof(IRepo<>), typeof(Repo<>))
                   .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                   .AddScoped<IAttachmentFileRepo, AttachmentFileRepo>()
+                  .AddScoped<UsersServices>()
+                  .AddScoped<LookupService>()
                   .AddSingleton<FileSettings>()
+                .AddScoped(typeof(GenericService<,>))
                   .AddScoped<IFileHelper, FileHelper>();
+            //=============Filter services =========================
+            services.AddScoped<ValidateModelAsyncActionFilter>();
 
             return services;
         }
@@ -211,12 +217,7 @@ namespace Shared.API.Helpers.Services
                 .UseRequestLocalization(
                     app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value)
                 .UseCors("AnyOrigin");
-            //.UseMvc(routes =>
-            //    {
-            //        routes.MapRoute("api", "api/{controller}/{action=Index}/{id?}");
-            //        routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            //    });
-
+   
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

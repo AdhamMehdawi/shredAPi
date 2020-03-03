@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Shared.Core.Interfaces.Employess;
-using Shared.Services.ViewModels.Employee;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+ using System.Collections.Generic;
+ using System.Threading.Tasks;
+using Shared.GeneralHelper.ViewModels.Employee;
 
 namespace Shared.Services.EmployeeServices
 {
